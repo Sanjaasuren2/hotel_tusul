@@ -1,0 +1,58 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+
+     <script>
+          function changeRole(user_id, role) {
+               const url = '/users/';
+               const data = {
+                    id: user_id,
+                    role: role
+               };
+               fetch(url, {
+                    method: 'POST',
+                    headers: {
+                         'Content-Type': 'application/json',
+                         'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify(data),
+               })
+               .then(response => response.json())
+               .then(data => {
+                    if(data?.status === 'Success') {
+                         window.alert("Төрөл өөрчлөгдлөө")
+                         window.location.reload()
+               } else {
+                         window.alert("Incorrect email or password")
+                    }
+               })
+               .catch(error => {
+                    console.error('Error:', error);          
+                    window.alert("System error")
+               });
+          }
+     </script>
+     <table class='table'>
+          <tr>
+               <th>Нэр</th>
+               <th>Төрөл</th>
+          </tr>
+     {% for user in users %}
+     <tr>
+          <td>{{user.first_name}} {{user.last_name}}</td>
+          <td>
+               <div class="dropdown">
+               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 {{user.role}}
+               </button>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                 <button class="dropdown-item" onclick="changeRole('{{user.id}}', 'ADMIN')">ADMIN</button>
+                 <button class="dropdown-item" onclick="changeRole('{{user.id}}', 'EMPLOYEE')">EMPLOYEE</button>
+                 <button class="dropdown-item" onclick="changeRole('{{user.id}}', 'USER')">USER</button>
+               </div>
+             </div>
+          </td>
+     </tr>
+     {% endfor %}
+     </table>
+{% endblock %}     

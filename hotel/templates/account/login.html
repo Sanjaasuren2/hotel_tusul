@@ -1,0 +1,80 @@
+<!-- 
+      <section id="slide">
+        <div class="login_bg_Pic" style="background: url ">
+          <div class="container">
+            <div class="row">
+              <div class="home-link text-center">
+                <p>
+                  <a href="{% url 'index' %}">Home</a><i class="fas fa-angle-right"></i><a href="#">Login</a>
+                </p>
+              </div>
+              <div class="login_info text-center">
+             
+                <form method="post" action="" target="_blank">
+                  {% csrf_token %}
+                  <div class="col-lg-10">
+                    <div class="login_email">
+                      <input type="email" name="Email" placeholder="Enter Email" required/>
+                    </div>
+                  </div>
+                  <div class="col-lg-10">
+                    <div class="login_pass">
+                      <input type="password" name="Password" placeholder="Enter Password" required/>
+                    </div>
+                  </div>
+                  <div class="col-lg-10">
+                    <div class="checkbox1">
+                      <input type="checkbox" required/><label for="checkbox1">Keep me logged in</label>
+                    </div>
+                   
+                  </div>
+                  <div class="col-lg-10">
+                    <div class="login_btn">
+                      <button type="submit" class="">Log in</button>
+                    </div>
+                  </div>
+                </form>
+                <div class="col-lg-8">
+                  <div class="register_btn">
+                    <p>
+                      Don't have an account?
+                      <a href="{% url 'register' %}" class="">Register</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+      <!--************************************
+
+			login part End
+		*************************************-->
+        <div class="login-container" id="loginForm">
+            <form action="{% url 'login' %}" method="post" class="login-form tab active-tab">
+                {% csrf_token %}
+                <div class="login-div">
+                    <h1 class="login-title">Нэвтрэх</h1>
+                </div>
+                <div class="login_email">
+                    <p class="logintxt">
+                        Email
+                    </p>
+                    <input type="email" name="Email" placeholder="Enter Email" required/>
+                    <p class="logintxt">
+                        Password
+                    </p>
+                    <input type="password" name="Password" placeholder="Enter Password" required/>
+                    
+                    <div class="col-lg-10">
+                        <div class="login_btn">
+                          <button type="submit"  class="btn btn-dark">Log in</button>
+                        </div>
+                      </div>
+                    <a id="toggleButton" href class="signuptxt">Don't have an account? Register</a>
+                </div>
+            </form>
+          </div>
+          

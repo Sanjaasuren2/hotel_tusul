@@ -1,0 +1,78 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+
+     <script>
+          function deleteBooking(booking_id) {
+               const url = '/book/';
+               const data = {
+                    booking_id: booking_id,
+               };
+               fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                         'Content-Type': 'application/json',
+                         'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify(data),
+               })
+               .then(response => response.json())
+               .then(data => {
+                    if(data?.status === 'Success') {
+                         window.location.reload()
+                         window.alert("Захиалга устгагдлаа")
+               } else {
+                         window.alert("Incorrect email or password")
+                    }
+               })
+               .catch(error => {
+                    console.error('Error:', error);          
+                    window.alert("System error")
+               });
+          }
+
+          function receiveBooking(booking_id) {
+               const url = '/receive/';
+               const data = {
+                    booking_id: booking_id,
+               };
+               fetch(url, {
+                    method: 'POST',
+                    headers: {
+                         'Content-Type': 'application/json',
+                         'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify(data),
+               })
+               .then(response => response.json())
+               .then(data => {
+                    if(data?.status === 'Success') {
+                         window.location.reload()
+                         window.alert("Захиалга батлагдлаа")
+               } else {
+                         window.alert("Incorrect email or password")
+                    }
+               })
+               .catch(error => {
+                    console.error('Error:', error);          
+                    window.alert("System error")
+               });
+          }
+     </script>
+
+     {% for booking in bookings %}
+          <div class="card m-4 border-0 shadow container d-flex flex-row justify-content-between {% if not booking.is_received %}bg-light{% else %}bg-success{% endif %}">
+               <div>
+                    <p>Захиалга: {{booking.booking_id}}</p>
+                    <p>Захиалгын хугацаа: {{booking.start_date}} - {{booking.end_date}}</p>
+                    <p>Хэрэглэгч: {{booking.user.first_name}} {{booking.user.last_name}}</p>
+                    <p>Холбогдох мэдээлэл: {{booking.user.email}} {{booking.user.phone}}</p>
+                    <p>Төлөв: {% if not booking.is_received %}Батлагдаагүй{% else %}Батлагдсан{% endif %}</p>
+               </div>
+               <div>
+                    <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#OrderModel" onclick="receiveBooking('{{booking.booking_id}}')">Хүлээн авах</button>
+                    <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#OrderModel" onclick="deleteBooking('{{booking.booking_id}}')">Цуцлах</button>
+               </div>
+          </div>
+     {% endfor %}
+{% endblock %}     

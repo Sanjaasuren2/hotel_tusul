@@ -1,0 +1,101 @@
+{% extends "base.html"%}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<script>
+     let dates = "";
+
+     function addDate(date) {
+          var button = document.getElementById("button_" + date)
+          var index = dates.indexOf(date + "|");
+          if (index !== -1) {
+              button.classList.remove("bg-success");
+              dates = dates.slice(0, index) + dates.slice(index + (date + "|").length);
+          } else {
+              button.classList.add("bg-success");
+              dates += date + "|";
+          }
+     }
+
+     function createBooking(id) {
+          const url = '/book/';
+          const data = {
+               room_id: id,
+               dates: dates
+          };
+          fetch(url, {
+               method: 'POST',
+               headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token if required
+               },
+               body: JSON.stringify(data),
+          })
+          .then(response => response.json())
+          .then(data => {
+               if(data?.status === 'Success') {
+                    window.location.reload()
+                    window.alert("Захиалга баталгаажлаа")
+          } else {
+                    window.alert("Incorrect email or password")
+               }
+          })
+          .catch(error => {
+               console.error('Error:', error);          
+               window.alert("System error")
+          });
+     }
+     
+</script>
+
+<div class="my-5 px-4" >
+  <h2 class="fw-bold h-font text-center">{{room.name}}</h2>
+  <div class="h-line bg-dark"></div>
+</div>
+<div class="card mb-4 border-0 shadow container">
+     <div class="row g-0 p-3 align-items-center">
+       <div class="col-md-5 mb-lg-0 mb-md-0 mb-3">
+           <img src="{% static 'img/room/'|add:room.image %}" class="img-fluid rounded">
+       </div>
+       <div class="col-md-5 px-lg-3 px-md-3 px-0">
+           {% csrf_token %}
+           <div class="features mb-4">
+               <h6 class="mb-1">Өрөөний онцлог</h6>
+               <span class="badge rounded-pill bg-light text-dark text-wrap">{{room.rooms}} Өрөө</span>
+               <span class="badge rounded-pill bg-light text-dark text-wrap">{{room.bathrooms}} Ариун цэврийн өрөө</span>
+               <span class="badge rounded-pill bg-light text-dark text-wrap">{{room.balconies}} Балкон</span>
+               <span class="badge rounded-pill bg-light text-dark text-wrap">{{room.beds}} Ор</span>
+           </div>
+           <div class="Facilities mb-3">
+               <h6 class="mb-1">Facilities</h6>
+               {% if room.haswifi == True %}
+                   <span class="badge rounded-pill bg-light text-dark text-wrap">Wifi</span>
+               {% endif %}
+               {% if room.hastv == True %}
+               <span class="badge rounded-pill bg-light text-dark text-wrap">Телевизор</span>
+               {% endif %}
+               {% if room.hasminibar == True %}
+               <span class="badge rounded-pill bg-light text-dark text-wrap">Минибар</span>
+               {% endif %}
+               {% if room.hasac == True %}
+               <span class="badge rounded-pill bg-light text-dark text-wrap">Агааржуулагч</span>
+               {% endif %}
+           </div>
+           <div class="guests mb-3">
+               <h6 class="mb-1">Зочины тоо</h6>
+               <span class="badge rounded-pill bg-light text-dark text-wrap">{{room.adults}} Том хүн</span>
+               <span class="badge rounded-pill bg-light text-dark text-wrap">{{room.children}} Хүүхэд</span>
+           </div>
+           <div class="Orders mb-3">
+               <h6 class="mb-1">Захиалах</h6>
+                {% for valid_date in valid_dates %}
+                    <button class="badge rounded-pill text-dark text-wrap" id="button_{{valid_date}}" onclick="addDate('{{valid_date}}')">{{valid_date}}</button>
+                {% endfor %}
+                <button class="bg-light text-dark text-wrap" onclick="createBooking('{{room.room_id}}')">Баталгаажуулах</button>
+           </div>
+       </div>
+   </div>
+</div>
+
+{% endblock %}     

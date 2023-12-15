@@ -1,0 +1,88 @@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function sendPostRequest() {
+        const url = '/register/';
+        const data = {
+            first_name: document.getElementById('typeFirstNameX').value,
+            last_name: document.getElementById('typeLastNameX').value,
+            email: document.getElementById('typeEmailX').value,
+            phone: document.getElementById('typePhoneX').value,
+            password: document.getElementById('typePasswordX').value,
+        };
+  
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}', // Include CSRF token if required
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data?.status === 'Success') {
+                window.location.href = '/login/'
+              } else {
+                window.alert("Incorrect email or password")
+              }
+        })
+        .catch(error => {
+            console.error('Error:', error);          
+            window.alert("System error")
+            window.location.href = '/'
+        });
+    }
+  </script>
+
+<section class="vh-100">
+    <div class="container py-4 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10 col-md-6 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <h3 class="mb-5">Register</h3>
+
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="typeFirstNameX">First Name</label>
+                            <input type="text" id="typeFirstNameX" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="typeLastNameX">Last Name</label>
+                            <input type="text" id="typeLastNameX" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="typeEmailX">Email</label>
+                            <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="typePhoneX">Phone</label>
+                            <input type="phone" id="typePhoneX" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="typePasswordX">Password</label>
+                            <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                        </div>
+
+                        <button class="btn btn-dark" onclick="sendPostRequest()">Register</button>
+
+                        <hr class="my-4">
+
+                        <!-- Link to the login page -->
+                        <p>Already have an account? <a href="/login">Login here</a></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

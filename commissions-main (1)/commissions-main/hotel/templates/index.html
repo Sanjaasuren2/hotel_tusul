@@ -1,0 +1,147 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+<h1>{{ message_from_backend }}</h1>
+    <div class="container-fluid px-lg-4 mt-4">
+        <div class="swiper swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="{% static '/img/slider2.jpg' %}" class="w-100 d-block" />
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static 'img/slider4.jpg' %}" class="w-100 d-block" />
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static 'img/slider8.jpg' %}" class="w-100 d-block" />
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="container availability-form">
+        <div class="row">
+            <div class="col-lg-12 bg-white shadow p-4 rounded">
+                <form>
+                    <div class="row align-items-end">
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label" style="font-weight: 500;">Орох өдөр</label>
+                            <input type="date" class="form-control shadow-none">
+                        </div>
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label" style="font-weight: 500;">Гарах өдөр</label>
+                            <input type="date" class="form-control shadow-none">
+                        </div>
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label" style="font-weight: 500;">Хүн</label>
+                            <input type="number" class="form-control shadow-none">
+
+                        </div>
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label" style="font-weight: 500;">Хүүхэд</label>
+                            <input type="number" class="form-control shadow-none">
+                        </div>
+                        <div class="col-lg-2 mb-3">
+                            <label class="form-label" style="font-weight: 500;">Өрөө</label>
+                            <input type="number" class="form-control shadow-none">
+
+                        </div>
+                        
+                        <div class="col-lg-1 mb-lg-3 mt-2">
+                            <button type="submit" class="btn btn-dark " > Хайх</button>
+                            <!-- <button type="submit" class="btn text-black shadow-none ">Submit</button> -->
+                        </div>
+   
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Өрөөний сонголтууд</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 my-3">
+                <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
+                    <img src="{% static 'img/room/r3.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">СТАНДАРТ СИНГЛ ӨРӨӨ</h5>
+                        <div class="features mb-4">
+                            <span class=" bg-light text-dark text-wrap">
+                                Нэг ортой энгийн өрөө нь дан ганцаар аялж буй зочинд тохирох бөгөөд таны ая тухыг хангахаар өндөр хурдны утасгүй интернет, мини бар, ажлын ширээ, электрон сейф зэрэг тоног төхөөрөмжөөр тоноглогдсон.
+                            </span>
+                            <div class="d-flex justify-content-end mb-2">
+                                <a href="{% url 'product' %}"  class="btn btn-outline-dark shadow-none me-lg-3 me-2 ">Өрөөний дэлгэрэнгүй</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-3">
+                <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
+                    <img src="{% static 'img/room/r2.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">СТАНДАРТ ТВИН ӨРӨӨ</h5>
+                        <div class="features mb-4">
+                            <span class=" bg-light text-dark text-wrap mb-2">
+                                Хоёр хүний хоёр ортой өрөө маань аялагчдад хамгийн тохиромжтой ба өндөр хурдны утасгүй интернет, мини бар, ажлын ширээ, электрон сейф зэрэг тоног төхөөрөмжөөр тоноглогдсон.                            </span>
+                            <div class="d-flex justify-content-end mb-2">
+                                <a href="{% url 'product' %}"  class="btn btn-outline-dark shadow-none me-lg-3 me-2 mt-4">Өрөөний дэлгэрэнгүй</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-3">
+                <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
+                    <img src="{% static 'img/room/r1.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">ГЭР БҮЛ, БИЗНЕСИЙН ӨРӨӨ</h5>
+                        <div class="features mb-4">
+                            <span class=" bg-light text-dark text-wrap">
+                                Хоёр хүний өргөн ортой саруулхан өрөө маань танд тав тухыг дээд зэргээр мэдрүүлнэ. Өндөр хурдны утасгүй интернет, мини бар, ажлын ширээ, электрон сейф зэрэг тоног төхөөрөмжөөр тоноглогдсон.
+                            <div class="d-flex justify-content-end mb-2">
+                                <a href="{% url 'product' %}"  class="btn btn-outline-dark shadow-none me-lg-3 me-2 ">Өрөөний дэлгэрэнгүй</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat the above code for two more card elements -->
+        </div>
+    </div>
+    <div class="my-5 px-4">
+        <h2 class="fw-bold h-font text-center">Бидний Тухай</h2>
+      
+        <div class="h-line bg-dark"></div>
+        <!-- <p class="text-center mt-3">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.
+        </p> -->
+    </div>
+      
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-lg-6 col-md-5 mb-4 order-lg-1 order-md-1 order-2">
+            <h3 class="mb-3">Зочид буудал</h3>
+            <p>
+                Бизнес ангиллын 4 одны зэрэглэлтэй Ханду зочид буудал нь европ хэв маяг дээр монгол үндэсний өнгө төрхийг
+                 шингээсэн өвөрмөц дотоод засал, тав тух, тансаг байдлыг хослуулсан ба Гадаад дотоодын зочид төлөөлөгч, 
+                 эрхэм үйлчлүүлэгч та бүхний тав тухыг хангах зай талбай том 56 зочид буудлын өрөө, мэргэжлийн тогоочийн 
+                 амт чанартай өглөө өдөр оройн хоолоор Triple Chinese Restaurant үйлчилж байна.  Цэвэр тохилог, ая тухтай, 
+                 шинэлэг интерьер бүхий аюулгүй орчин та бүхнийг угтах болно. 
+            </p>
+          </div>
+          <div class="col-lg-5 col-md-5 mb-4 order-lg-2 order-md-2 order-1">
+            <img src="{% static 'img/slider8.jpg' %}" class="w-100">
+           ]] 
+          </div>
+        </div>
+
+{% endblock %}    
+    
+  
+

@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>handu hotel</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200&family=Poppins:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Nunito:ital,wght@1,200&family=Poppins:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style type="text/css">
+	
+        .availability-form{
+            margin-top: -50px;
+            z-index: 2;
+            position: relative;
+        }
+    
+        @media screen and (max-width: 575px) {
+        .availability-form{
+            margin-top: 25px;
+            padding: 0 35px;
+        }
+    
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-light px-lg-3 py-lg-2 shadow-sm sticky-top">
+            <div class="container-fluid">
+              <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="{% url 'index' %}">HANDU HOTEL</a>
+              <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Нүүр хуудас</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link me-2" href="{% url 'room' %}">Өрөөний сонголтууд</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link me-2" href="{% url 'uilchilgee' %}">Үйлчилгээ</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link me-2" href="{% url 'about' %}">Бидний тухай</a>
+                  </li>
+                 
+                  {% if role == 'USER' %}
+                  <li class="nav-item">
+                    <a class="nav-link me-2" href="{% url 'bookings' %}">Миний захиалгууд</a>
+                  </li>
+                  {% endif %}
+                
+                  {% if role == 'EMPLOYEE' or role == 'ADMIN' %}
+                  <li class="nav-item">
+                    <a class="nav-link me-2" href="/receive">Хүлээн авах</a>
+                  </li>
+                  {% endif %}
+                  {% if role == 'ADMIN' %}
+                  <li class="nav-item">
+                    <a class="nav-link me-2" href="/manager">Өрөө удирдах</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link me-2" href="/users">Хэрэглэгчид</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              
+                
+                <div class="d-flex" role="search">
+                  {% if user_first_name != None %}
+                      <p>{{ user_first_name }} {{ user_last_name }}</p>
+                      <div style="margin-left: 5px"></div>
+                      <a class="nav-link me-2" href="{% url 'logout' %}">Гарах</a>
+                  {% else %}
+                    <a class="nav-link me-2" href="{% url 'login' %}">Нэвтрэх</a>
+                    <a class="nav-link me-2" href="{% url 'register' %}">Бүртгүүлэх</a>
+                  {% endif %}
+                </div>
+                
+              </div>
+            </div>
+          </nav>
+          </div>
+    </header>
+
+    {% block content%}
+    {% endblock %}
+
+    <footer>
+        <div class="container-fluid bg-white mt-5">
+            <div class="row">
+                <div class="col-lg-4 p-4">
+                    <h3 class="h-font fw-bold fs-3 mb-2">HANDU HOTEL</h3>
+                    <p>Бизнес ангиллын 4 одны зэрэглэлтэй Ханду зочид буудал нь европ хэв маяг дээр монгол үндэсний өнгө төрхийг
+                      шингээсэн өвөрмөц дотоод засал, тав тух, тансаг байдлыг хослуулсан</p>
+                </div>
+                <div class="col-lg-4 p-4">
+                    <h5 class="mb-3">Link</h5>
+                    <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Нүүр хуудас</a><br>
+                    <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none"> Өрөөний сонголтууд</a><br>
+                    <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Үйлчилгээ</a><br>
+                    <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Бидний тухай</a>
+                </div>
+                <div class="col-lg-4 p-4">
+                    <h5 class="mb-3">Follow us</h5>
+                    <a href="#" class="d-inline-block text-dark text-decoration-none mb-2">
+                        <i class="bi bi-twitter me-1"></i>Twitter
+                    </a><br>
+                    <a href="#" class="d-inline-block text-dark text-decoration-none mb-2">
+                        <i class="bi bi-facebook me-1"></i>facebook
+                    </a><br> 
+                    <a href="#" class="d-inline-block text-dark text-decoration-none">
+                        <i class="bi bi-instagram me-1"></i>facebook
+                    </a><br>  
+                </div>
+            </div>
+        </div>
+       
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    </footer>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+   <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".swiper-container", {
+        spaceBetween: 30,
+        effect: "fade",
+        loop: true,
+        autoplay: {
+        	delay: 3500,
+        	disableOnInteraction: false,
+        }
+      });
+
+      var swiper = new Swiper(".swiper-testimonials", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        slidesPerView: "3",
+        loop: true,
+        coverflowEffect: {
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+        },
+        breakpoints: {
+        	320: {
+        		slidesPerView: 1,
+        	},
+        	640: {
+        		slidesPerView: 1,
+        	},
+        	768: {
+        		slidesPerView: 2,
+        	},
+        	1024: {
+        		slidesPerView: 3,
+        	},
+        }
+      });
+    </script>
+</body>
+</html>

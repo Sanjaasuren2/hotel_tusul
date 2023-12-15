@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Add the Bootstrap CSS link here, if not already included in your base.html file -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<script>
+    function deleteBooking(booking_id) {
+        const url = '/book/';
+        const data = {
+            booking_id: booking_id,
+        };
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data?.status === 'Success') {
+                    window.location.reload();
+                    window.alert("Захиалга устгагдлаа");
+                } else {
+                    window.alert("Incorrect email or password");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.alert("System error");
+            });
+    }
+</script>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Захиалга</th>
+                <th scope="col">Захиалгын хугацаа</th>
+                <th scope="col">Хэрэглэгч</th>
+                <th scope="col">Холбогдох мэдээлэл</th>
+                <th scope="col">Цуцлах</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.booking_id }}</td>
+                <td>{{ booking.start_date }} - {{ booking.end_date }}</td>
+                <td>{{ booking.user.first_name }} {{ booking.user.last_name }}</td>
+                <td>{{ booking.user.email }} {{ booking.user.phone }}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark shadow-none" data-bs-toggle="modal" data-bs-target="#OrderModel" onclick="deleteBooking('{{ booking.booking_id }}')">Цуцлах</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

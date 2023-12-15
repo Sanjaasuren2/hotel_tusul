@@ -1,0 +1,38 @@
+function x = gaussSeidel(A, b, x0, maxIterations, tolerance)
+    % Input:
+    %   A: Coefficient matrix
+    %   b: Right-hand side vector
+    %   x0: Initial guess
+    %   maxIterations: Maximum number of iterations
+    %   tolerance: Convergence tolerance
+
+    n = length(b);
+    x = x0;
+
+    for k = 1:maxIterations
+        xOld = x;
+        for i = 1:n
+            sum1 = A(i, 1:i-1) * x(1:i-1);
+            sum2 = A(i, i+1:end) * xOld(i+1:end);
+            x(i) = (b(i) - sum1 - sum2) / A(i, i);
+        end
+
+        % Check for convergence
+        if norm(x - xOld, inf) < tolerance
+            break;
+        end
+    end
+
+    fprintf('Solution after %d iterations:\n', k);
+    disp(x);
+end
+
+
+A = [4, 2, 1; 6.25, 2.5, 1; 9, 3, 1];
+b = [8.57; 10; 12];
+x0 = [0; 0; 0];
+maxIterations = 2;
+% tolerance = 1e-6;
+tolerance = 0;
+
+gaussSeidel(A, b, x0, maxIterations, tolerance);

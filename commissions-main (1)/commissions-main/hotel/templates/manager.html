@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <div class="container">
+    <h2>Create Room</h2>
+    <form method="post" action="{% url 'manager' %}">
+      {% csrf_token %}
+      <table class="table">
+        <tbody>
+          {% for field in form %}
+            <tr>
+              <th>{{ field.label_tag }}</th>
+              <td>{{ field }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button type="submit" class="btn btn-primary">Create Room</button>
+    </form>
+  </div>
+
+{% endblock %}
